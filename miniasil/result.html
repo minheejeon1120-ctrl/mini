@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>에니어그램 시네마 결과</title>
+
+  <!-- 공통 스타일 (영화관 페이지에서 쓰던 styles.css 그대로 사용) -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- 결과 전용 스타일 -->
+  <link rel="stylesheet" href="result.css" />
+</head>
+<body>
+  <!-- 412×917 캔버스 공통 래퍼 -->
+  <div class="bg-wrapper">
+    <!-- bbg 배경 이미지 -->
+    <img src="./images/bbg.png" alt="배경" class="bg-image" />
+
+    <!-- 🔹영화관 페이지와 동일한 헤더 / 홈버튼-->
+   
+    <!-- 상단 홈버튼 -->
+       <header class="cinema-header">
+       <button class="home-btn" onclick="window.location.href='./'">🏠</button>
+
+      </header>
+
+
+    <!-- 결과 전체 레이아웃 -->
+    <div class="result-layout">
+      <!-- 연두색 grcard 박스 (안쪽만 스크롤) -->
+      <section class="result-grcard">
+        <!-- 위/아래 그라데이션 -->
+        <div class="result-grcard-fade result-grcard-fade--top"></div>
+        <div class="result-grcard-fade result-grcard-fade--bottom"></div>
+
+        <!-- 실제 내용이 스크롤되는 영역 -->
+        <div class="result-grcard-scroll" id="result-scroll">
+          <!-- JS에서 채워짐 -->
+        </div>
+      </section>
+
+      <!-- 맨 아래 버튼 -->
+      <button class="result-bottom-btn" onclick="alert('여기서 카메라/사진 기능 연결 예정!')">
+    캐릭터랑 사진찍기
+      </button>
+    </div>
+  </div>
+
+  <script>
+    /* ===== 공통 키 ===== */
+    const TYPE_KEYS = [
+      "type1", "type2", "type3",
+      "type4", "type5", "type6",
+      "type7", "type8", "type9"
+    ];
+
+    /* ===== 각 유형 텍스트 ===== */
+    const TYPE_INFO = {
+      type1: {
+        name: "1유형 · 완벽을 추구하는 이상가",
+        short: "원칙과 기준을 중요하게 여기고, 스스로에게도 엄격한 편이에요.",
+        long: "1유형은 옳고 그름에 대한 기준이 뚜렷하고, 스스로도 그 기준을 지키려 노력하는 타입이에요. 그래서 책임감 있고 믿음직스럽다는 말을 자주 듣지만, 때로는 자신에게 너무 엄격해서 스스로를 힘들게 만들기도 해요. \"충분히 잘하고 있다\"는 말과 함께, 완벽하지 않아도 괜찮다는 여유를 조금씩 허락해 보는 연습이 도움돼요."
+      },
+      type2: {
+        name: "2유형 · 따뜻한 도움을 주는 조력가",
+        short: "사람들을 돕고 챙기면서 사랑과 보람을 느끼는 타입이에요.",
+        long: "2유형은 주변 사람의 마음을 잘 알아채고, 먼저 다가가 도와주는 따뜻한 조력자예요. 덕분에 사람들 사이에서 분위기 메이커이자 든든한 존재가 되지만, 가끔은 나보다 타인의 필요를 우선하다가 지치기도 해요. 상대를 챙기는 만큼 나의 마음도 돌보고, 먼저 나에게 친절해지는 시간이 필요해요."
+      },
+      type3: {
+        name: "3유형 · 성취와 성장을 추구하는 성과가",
+        short: "목표를 정하고 성취하는 과정에서 큰 에너지를 얻는 타입이에요.",
+        long: "3유형은 효율과 성과에 강점이 있어요. 목표를 세우고, 그 목표를 향해 빠르게 달려가는 능력이 뛰어나죠. 다만 성과와 이미지가 가장 앞에 서다 보니, 진짜 내 마음의 목소리를 뒤로 미루는 순간도 생길 수 있어요. 결과뿐 아니라 과정 속에서 내가 무엇을 느끼는지도 함께 챙겨 보는 것이 성장에 큰 도움이 돼요."
+      },
+      type4: {
+        name: "4유형 · 감정과 개성을 중시하는 예술가",
+        short: "자기만의 색깔과 감정을 소중히 여기는 감성적인 타입이에요.",
+        long: "4유형은 다른 사람과 다른 나만의 감정, 감수성을 중요하게 여기는 사람입니다. 풍부한 상상력과 공감 능력 덕분에 예술적 재능을 보이기도 해요. 하지만 때로는 비교와 열등감에 빠져 스스로를 과하게 낮게 보기도 해요. 있는 그대로의 나를 인정하며, 이미 충분히 특별한 존재라는 사실을 기억하는 것이 중요해요."
+      },
+      type5: {
+        name: "5유형 · 관찰하고 분석하는 탐구가",
+        short: "한 발 물러서 깊게 관찰하고 이해하려는 지적인 타입이에요.",
+        long: "5유형은 지식과 정보에 강한 흥미를 느끼고, 혼자만의 생각 시간에서 에너지를 충전해요. 그래서 사람들 사이보다는 조용한 공간이 더 편할 때가 많죠. 다만 지나치게 머릿속에서만 상황을 정리하다 보면, 실제 경험의 기회를 놓치기도 해요. 안전한 범위에서 작은 행동을 시도해 보는 것이 세상과 연결되는 첫걸음이 될 수 있어요."
+      },
+      type6: {
+        name: "6유형 · 책임감 있고 신중한 신뢰가",
+        short: "위험을 미리 생각하고 대비하는, 든든한 안전 지킴이 타입이에요.",
+        long: "6유형은 불확실한 상황에서 위험 요소를 잘 포착하고, 대비책을 준비하는 사람입니다. 그래서 팀이나 관계에서 든든한 존재가 되지만, 동시에 걱정과 불안을 많이 느낄 수 있어요. 이미 충분히 준비했다는 사실을 떠올리며, 나 자신과 주변 사람에 대한 신뢰를 조금씩 키워가는 것이 마음의 안정에 도움이 됩니다."
+      },
+      type7: {
+        name: "7유형 · 즐거움과 가능성을 좇는 모험가",
+        short: "새로운 경험과 재미있는 일을 찾아 나서는 에너지 넘치는 타입이에요.",
+        long: "7유형은 다채로운 경험과 자유를 사랑하는 사람입니다. 아이디어가 풍부하고, 사람들에게 웃음을 주는 역할을 자주 맡게 되죠. 하지만 불편한 감정을 피하려고 너무 바쁘게 움직이다 보면, 마음속 진짜 고민을 미루게 될 수 있어요. 잠시 속도를 늦추고 현재의 감정을 찬찬히 바라보는 시간이 필요해요."
+      },
+      type8: {
+        name: "8유형 · 주도적이고 단단한 리더형",
+        short: "직접 나서서 결정하고 이끄는 데 익숙한 강한 리더 타입이에요.",
+        long: "8유형은 솔직하고 직선적인 에너지를 가지고 있어요. 불공정한 상황을 보면 그냥 넘기지 못하고, 약한 사람을 지키고 싶은 마음도 큽니다. 다만 강한 모습 뒤에 숨겨진 여린 마음을 잘 드러내지 못해 오해를 살 때도 있어요. 때로는 속마음을 부드럽게 표현해 보는 연습이 관계를 더 따뜻하게 만들어 줄 거예요."
+      },
+      type9: {
+        name: "9유형 · 평화와 조화를 지향하는 중재자",
+        short: "갈등을 완화하고 모두가 편안한 분위기를 만드는 데 강점이 있어요.",
+        long: "9유형은 사람들 사이의 긴장을 풀어 주고, 누구나 편하게 느끼는 분위기를 만드는 데 타고난 재능이 있어요. 대신 내 의견을 뒤로 미루고 참고 넘어가는 경우가 많아, 나중에야 마음속 피로감이 몰려올 수 있습니다. 작은 일부터 \"나는 이렇게 생각해\"라고 한마디 더해 보는 연습이, 당신만의 평화를 지키는 데 큰 도움이 돼요."
+      }
+    };
+
+    const scrollEl = document.getElementById("result-scroll");
+
+    function renderEmpty() {
+      scrollEl.innerHTML = `
+        <div class="result-empty">
+          아직 테스트 결과가 없습니다.<br/><br/>
+          먼저 영화관 시나리오 테스트를 완료한 뒤<br/>
+          다시 이 페이지를 열어 주세요.
+        </div>
+      `;
+    }
+
+    function renderResult() {
+      const rawScores  = localStorage.getItem("cinemaTypeScores");
+      const rawPrimary = localStorage.getItem("cinemaPrimaryTypes");
+
+      if (!rawScores || !rawPrimary) {
+        renderEmpty();
+        return;
+      }
+
+      const typeScores   = JSON.parse(rawScores);
+      const primaryTypes = JSON.parse(rawPrimary);
+
+      if (!typeScores || Object.keys(typeScores).length === 0) {
+        renderEmpty();
+        return;
+      }
+
+      const mainTypeKey = primaryTypes && primaryTypes.length
+        ? primaryTypes[0]
+        : TYPE_KEYS[0];
+
+      const mainInfo  = TYPE_INFO[mainTypeKey];
+      const mainScore = typeScores[mainTypeKey] || 0;
+
+      // 점수 내림차순 정렬
+      const sortedKeys = [...TYPE_KEYS].sort((a, b) => {
+        const av = typeScores[a] || 0;
+        const bv = typeScores[b] || 0;
+        return bv - av;
+      });
+
+      const maxScore = Math.max(
+        ...TYPE_KEYS.map(t => typeScores[t] || 0),
+        1
+      );
+
+      const scoreListHtml = sortedKeys.map((key) => {
+  const info  = TYPE_INFO[key];
+  const score = typeScores[key] || 0;
+  const widthPercent = (score / maxScore) * 100;
+
+  return `
+    <div class="score-item-block">
+      <div class="score-item-header">
+        <div class="score-item-title">${info.name}</div>
+        <div class="score-item-value">${score}점</div>
+      </div>
+
+      <div class="score-item-bar-wrap">
+        <div class="score-item-bar" style="width:${widthPercent}%;"></div>
+      </div>
+    </div>
+  `;
+}).join("");
+
+      scrollEl.innerHTML = `
+        <div class="result-title-banner">
+           당신의 에니어그램 성향은?
+        </div>
+
+        <div class="result-pan-wrap">
+          <div class="result-pan">
+            <img src="./images/pan.png" alt="에니어그램 판" class="result-pan-img" />
+            <canvas id="radar-canvas" width="220" height="220"></canvas>
+          </div>
+        </div>
+
+        <!-- 메인 유형 카드 -->
+        <section class="result-card">
+          <div class="result-main-type-title" ✨️메인 유형</div>
+          <div class="result-main-type-name">${mainInfo.name}</div>
+          <p class="result-main-type-desc">${mainInfo.short}</p>
+          <div class="result-main-type-chip">
+            메인 점수 <span>${mainScore}점</span>
+          </div>
+        </section>
+
+        <!-- 자세한 설명 카드 -->
+        <section class="result-card">
+          <div class="result-detail-title">이럴 때, 당신의 모습을 잘 보여줘요</div>
+          <p>${mainInfo.long}</p>
+        </section>
+
+       <!-- 유형별 점수 분포 카드 -->
+  <section class="result-card result-card--scores">
+  <div class="result-score-section-title">유형별 점수 분포</div>
+  <div class="result-score-list">
+    ${scoreListHtml}
+  </div>
+</section>
+      `;
+
+      drawRadarChart(typeScores);
+    }
+
+    /* ===== 레이더 차트 ===== */
+    function drawRadarChart(typeScores) {
+      const canvas = document.getElementById("radar-canvas");
+      if (!canvas || !canvas.getContext) return;
+
+      const ctx  = canvas.getContext("2d");
+      const size = Math.min(canvas.width, canvas.height);
+      const cx   = size / 2;
+      const cy   = size / 2;
+      const maxRadius = size * 0.38;
+
+      const maxScore = Math.max(
+        ...TYPE_KEYS.map(t => typeScores[t] || 0),
+        1
+      );
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const points = TYPE_KEYS.map((key, index) => {
+        const score = typeScores[key] || 0;
+        const ratio = score / maxScore;
+        const radius = maxRadius * ratio;
+        const angle = (-Math.PI / 2) + (2 * Math.PI * index / TYPE_KEYS.length);
+        const x = cx + radius * Math.cos(angle);
+        const y = cy + radius * Math.sin(angle);
+        return { x, y };
+      });
+
+      // 채워진 영역
+      ctx.beginPath();
+      points.forEach((p, i) => {
+        if (i === 0) ctx.moveTo(p.x, p.y);
+        else ctx.lineTo(p.x, p.y);
+      });
+      ctx.closePath();
+      ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
+      ctx.fill();
+
+      // 외곽선
+      ctx.beginPath();
+      points.forEach((p, i) => {
+        if (i === 0) ctx.moveTo(p.x, p.y);
+        else ctx.lineTo(p.x, p.y);
+      });
+      ctx.closePath();
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.98)";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // 꼭짓점 동그라미
+      ctx.fillStyle = "#ffffff";
+      points.forEach((p) => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    // 렌더링 시작
+    renderResult();
+  </script>
+</body>
+</html>

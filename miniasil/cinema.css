@@ -1,0 +1,255 @@
+/* ============================== */
+/* 1. 영화관 전체 캔버스          */
+/* ============================== */
+
+.cinema-app {
+  width: 412px;
+  height: 917px;
+  background: #202020;
+  padding: 24px 20px 20px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* ============================== */
+/* 2. 상단 헤더                   */
+/* ============================== */
+
+.cinema-header {
+  display: flex;
+  align-items: center;
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  border: none;
+  background: #ffc54a;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ============================== */
+/* 3. 안내 카드                   */
+/* ============================== */
+
+.intro-card {
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: #ffffff;
+  color: #222;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ============================== */
+/* 4. 진행 바                     */
+/* ============================== */
+
+.progress-wrap {
+  /* 위쪽 여백은 cinema-app의 gap으로 처리 */
+}
+
+.progress-track {
+  width: 100%;
+  height: 18px;
+  border-radius: 999px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: #4fd0a8;
+  transition: width 0.25s ease;
+}
+
+.progress-text {
+  margin-top: 4px;
+  font-size: 12px;
+  text-align: right;
+  color: #e0e0e0;
+}
+
+/* ============================== */
+/* 5. 메인 스크롤 영역            */
+/* ============================== */
+
+.scenario-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+/* 크롬/사파리 스크롤바 제거 */
+.scenario-main::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* ============================== */
+/* 6. 영상 카드                   */
+/* ============================== */
+
+.media-card {
+  padding: 12px;
+  border-radius: 18px;
+  background: #111111;
+}
+
+/* 실제 비디오 태그 */
+.media-video {
+  width: 100%;
+  border-radius: 16px;
+  display: block;
+  background: #000;
+}
+
+/* ============================== */
+/* 7. 시나리오 설명 카드          */
+/* ============================== */
+
+.scenario-text-card {
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: #ffffff;
+  color: #222;
+}
+
+.scenario-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.scenario-text {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.scenario-hint {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #888;
+}
+
+/* ============================== */
+/* 8. 보기 옵션 카드              */
+/* ============================== */
+
+.options-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 개별 옵션 박스 */
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: #6cd0b4;
+  border-radius: 12px;
+  margin-bottom: 4px;
+  color: #ffffff;
+}
+
+/* ============================== */
+/* 9. 체크박스 커스텀             */
+/* ============================== */
+
+.option-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #ffffff;
+  border-radius: 6px;
+  background-color: #ffffff;
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.option-checkbox:checked {
+  background-color: #ffc04c;
+  border-color: #ffc04c;
+}
+
+.option-checkbox:checked::after {
+  content: "✔";
+  color: white;
+  font-size: 16px;
+  position: absolute;
+  left: 3px;
+  top: -1px;
+}
+
+/* ============================== */
+/* 10. 선택지 텍스트              */
+/* ============================== */
+
+.option-label {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #ffffff;
+}
+
+/* ============================== */
+/* 11. 하단 버튼                  */
+/* ============================== */
+
+.scenario-footer {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-btn {
+  flex: 1;
+  padding: 12px 0;
+  border-radius: 18px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.nav-btn--prev {
+  background: #ffffff;
+  color: #444444;
+}
+
+.nav-btn--next {
+  background: #ff9a2a;
+  color: #ffffff;
+}
+
+.nav-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+  box-shadow: none;
+}

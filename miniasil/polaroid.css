@@ -1,0 +1,75 @@
+/* ===== 중앙 정렬 ===== */
+body {
+  margin: 0;
+  background: #7ac8f3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* ===== 폴라로이드 wrapper ===== */
+.polaroid-wrapper {
+  width: 412px;
+  height: 917px;
+  position: relative;
+  background-image: url("./images/bluebg.png");
+  background-size: cover;
+  overflow-y: auto;
+}
+
+/* ===== 홈 버튼 영역을 영화관 페이지와 동일하게 설정 ===== */
+.cinema-header {
+  display: flex;
+  align-items: center;
+  padding: 24px; /* 영화관 페이지와 동일하게 상단 패딩 추가 */
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  border: none;
+  background: #ffc54a;
+  font-size: 22px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 제목 & 안내 텍스트 위치 조정 */
+.title-banner {
+  width: 90%;
+  display: block;
+  /* 기존 120px → 80px 정도로 줄이기 */
+  margin: 70px auto 16px auto;
+}
+
+.title-text {
+  width: 80%;
+  display: block;
+  /* 기존 0 auto 40px auto → 아래 여백도 조금 줄이기 */
+  margin: 0 auto 24px auto;
+}
+
+/* 캐릭터 그리드도 살짝 위로 붙이고 싶으면: */
+.characters {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  column-gap: 20px;
+  row-gap: 24px;
+  justify-content: center;
+  padding-bottom: 40px;
+  /* 필요하면 주석 해제해서 아주 조금만 올리기
+  margin-top: -4px;
+  */
+}
+
+
+.char-item {
+  width: 100px;
+  cursor: pointer;
+}

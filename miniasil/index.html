@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>메인</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-wrapper">
+    <!-- 배경 이미지 -->
+    <img src="./images/bg.png" class="bg-image" alt="배경" />
+
+    <!-- 네모 아이콘 + 말풍선 -->
+    <div class="icon-row">
+      <!-- 왼쪽 아이콘 (영화관) + 에니어그램 유형 찾기 말풍선 -->
+      <div class="icon-box icon-box--left">
+        <img src="./images/bubble-type.png" class="bubble bubble-top" alt="에니어그램 유형 찾기" />
+
+        <!-- 영화관 아이콘을 링크로 감싸기 -->
+        <a href="cinema.html">
+          <img src="./images/icon-cinema.png" class="icon" alt="영화관" />
+        </a>
+      </div>
+
+      <!-- 가운데 아이콘 (폴라로이드) + 링크 추가 -->
+      <div class="icon-box icon-box--center">
+        <a href="polaroid.html">
+          <img
+            src="./images/bubble-future.png"
+            class="bubble bubble-bottom"
+            alt="2026년의 나에게 찍은 사진과 함께 편지보내기"
+          />
+          <img src="./images/icon-polaroid.png" class="icon" alt="폴라로이드" />
+        </a>
+      </div>
+
+      <!-- 오른쪽 아이콘 (미래편지) -->
+      <div class="icon-box icon-box--right">
+        <img
+          src="./images/bubble-photo.png"
+          class="bubble bubble-top"
+          alt="찾은 유형친구와 사진찍기"
+        />
+        <img src="./images/icon-letter.png" class="icon" alt="미래편지" />
+      </div>
+    </div>
+  </div>
+</body>
+</html>

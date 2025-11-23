@@ -1,0 +1,136 @@
+/* ============================== */
+/* 0. 공통 리셋 + 바탕 세팅       */
+/* ============================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: #7ac8f3;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* 412 x 917 배경 캔버스 */
+.bg-wrapper {
+  width: 412px;
+  height: 917px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 배경 이미지 (메인에서만 사용) */
+.bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================== */
+/* 1. 메인 화면 아이콘 + 말풍선   */
+/* ============================== */
+
+/* 네모 아이콘 3개 줄 */
+.icon-row {
+  position: absolute;
+  top: 260px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  z-index: 2;
+}
+
+/* 아이콘 + 말풍선 한 세트 */
+.icon-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 네모 아이콘 */
+.icon {
+  width: 110px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+/* 호버 시 아이콘만 살짝 위로 */
+.icon-box:hover .icon {
+  transform: translateY(-3px);
+  filter: brightness(1.05);
+}
+
+/* 공통 말풍선 기본 상태 (숨김) */
+.bubble {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 3;
+}
+
+/* 위쪽 말풍선 (왼쪽/오른쪽) */
+.bubble-top {
+  bottom: 100%;
+  left: 50%;
+  transform: translate(-50%, 10px);
+  margin-bottom: 14px;
+}
+
+/* 왼쪽 아이콘 말풍선을 약간 안쪽(오른쪽)으로 */
+.icon-box--left .bubble-top {
+  left: 70%;
+}
+
+/* 오른쪽 아이콘 말풍선을 약간 안쪽(왼쪽)으로 */
+.icon-box--right .bubble-top {
+  left: 30%;
+}
+
+/* 아래쪽 말풍선 (가운데) */
+.bubble-bottom {
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -10px);
+  margin-top: 16px;
+}
+
+/* 말풍선 크기 개별 조정 */
+.icon-box--left .bubble {
+  width: 172px; /* 에니어그램 유형 찾기 */
+}
+
+.icon-box--center .bubble {
+  width: 196px; /* 2026년의 나에게… */
+}
+
+.icon-box--right .bubble {
+  width: 179px; /* 찾은 유형친구와 사진찍기 */
+}
+
+/* 호버 시 말풍선 등장 */
+.icon-box:hover .bubble-top {
+  opacity: 1;
+  transform: translate(-50%, -2px);
+}
+
+.icon-box:hover .bubble-bottom {
+  opacity: 1;
+  transform: translate(-50%, 2px);
+}

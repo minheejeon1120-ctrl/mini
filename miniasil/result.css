@@ -1,0 +1,322 @@
+/* =============== 결과 페이지 전용 스타일 =============== */
+
+/* 전체 레이아웃 – 홈버튼 아래에서 살짝 내려와 시작 */
+.result-layout {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 90px 0 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* bbg 배경 – 맨 뒤에 깔기 */
+.bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* 결과 페이지에서 홈버튼이 항상 위에 보이도록 */
+.bg-wrapper .cinema-header {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  z-index: 3;
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  border: none;
+  background: #ffc54a;
+  font-size: 22px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/* 연두색 박스 전체 (스크롤 컨테이너) */
+.result-grcard {
+  position: relative;
+  z-index: 1;
+  width: 368px;
+  height: 640px;              /* 내부만 스크롤 */
+  border-radius: 28px;
+  background: url("./images/grcard.png") no-repeat center/cover;
+  overflow: hidden;
+}
+
+/* 실제 스크롤 영역 */
+.result-grcard-scroll {
+  position: relative;
+  height: 100%;
+  padding: 30px 22px 28px;
+  overflow-y: auto;
+  scrollbar-width: none;       /* firefox */
+}
+.result-grcard-scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;                   /* chrome */
+}
+
+/* 위/아래 페이드 그라데이션 */
+.result-grcard-fade {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 46px;
+  pointer-events: none;
+  z-index: 2;
+}
+.result-grcard-fade--top {
+  top: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(205, 236, 138, 1),
+    rgba(205, 236, 138, 0)
+  );
+}
+.result-grcard-fade--bottom {
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    rgba(205, 236, 138, 1)30%,
+    rgba(205, 236, 138, 0)
+  );
+}
+
+/* 타이틀 배너 */
+.result-title-banner {
+  background: #ffd452;
+  border-radius: 22px;
+  padding: 10px 18px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.18);
+}
+
+/* pan + 레이더 그래프 영역 */
+.result-pan-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.result-pan {
+  position: relative;
+  width: 220px;
+  height: 220px;
+}
+.result-pan-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+#radar-canvas {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 180px;
+  height: 180px;
+}
+
+/* 공통 카드 스타일 */
+.result-card {
+  border-radius: 20px;
+  background: #ffffff;
+  padding: 16px 18px 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #222;
+  margin-bottom: 12px;
+}
+
+/* 혹시 다른 페이지 카드 말풍선 꼬리가 상속돼 있다면 제거 */
+.result-card::before,
+.result-card::after {
+  content: none !important;
+}
+
+/* 메인 유형 카드 안쪽 */
+.result-main-type-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f4a000;
+  margin-bottom: 6px;
+}
+.result-main-type-name {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.result-main-type-desc {
+  margin-bottom: 10px;
+}
+.result-main-type-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: #ffe08a;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5a3a00;
+}
+.result-main-type-chip span {
+  margin-left: 4px;
+  font-size: 11px;
+  opacity: 0.9;
+}
+
+/* 상세 설명 카드 */
+.result-detail-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+/* ===== 유형별 점수 분포 (검정 박스 스타일) ===== */
+
+/* 이 카드만 특별 스타일 */
+.result-card--scores {
+  background: rgba(249, 213, 93, 0.82);   /* 2번 이미지처럼 어두운 박스 */
+  color: #ffffff;
+  padding: 14px 16px 12px;
+  border-radius: 20px;
+}
+
+/* 섹션 타이틀 */
+.result-card--scores .result-score-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #222;                    /* 살짝 노란 느낌 */
+}
+
+/* 리스트 전체 레이아웃 */
+.result-card--scores .result-score-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* 한 줄(한 유형) */
+.result-card--scores .result-score-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #fefefe;
+}
+
+/* 유형 이름 텍스트 */
+.result-card--scores .result-score-label {
+  flex: 1;                           /* 왼쪽 텍스트가 최대한 넓게 */
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 막대 영역 */
+.result-card--scores .result-score-bar-wrap {
+  flex: 0 0 110px;                   /* 막대 길이 고정 (조절 가능) */
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  height: 6px;
+  overflow: hidden;
+}
+
+/* 실제 막대 색 */
+.result-card--scores .result-score-bar {
+  height: 100%;
+  border-radius: 999px;
+  background: #ffffff;               /* 민트빛 – 지금 테마랑 잘 어울리게 */
+}
+
+/* 점수 숫자 */
+.result-card--scores .result-score-value {
+  flex: 0 0 28px;
+  text-align: right;
+  font-size: 11px;
+  color: #ffe7a4;                    /* 살짝 노란 점수 글씨 */
+}
+
+
+/* 맨 아래 버튼 */
+.result-bottom-btn {
+  z-index: 1;
+  margin-top: 12px;
+  border: none;
+  border-radius: 22px;
+  background: #ff9c33;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 11px 36px;
+  cursor: pointer;
+}
+.result-bottom-btn:active {
+  transform: translateY(1px);
+}
+
+/* 결과 없을 때 */
+.result-empty {
+  font-size: 14px;
+  text-align: center;
+  padding: 40px 24px;
+  color: #222;
+}
+/* 새로운 유형별 점수 분포 구조 */
+.score-item-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 0;
+}
+
+.score-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.score-item-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #5a3a00; /* 밝은 노랑 */
+}
+
+.score-item-value {
+  font-size: 11px;
+  font-weight: 600;
+  color: #5a3a00;
+}
+
+.score-item-bar-wrap {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.score-item-bar {
+  height: 100%;
+  background: #ff9c33; /* 귀여운 민트 */
+  border-radius: 999px;
+}
